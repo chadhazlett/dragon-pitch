@@ -635,7 +635,7 @@ function wire() {
   // Register the service worker for offline play (network-first: always fresh when
   // online, cached for the car). reset.html stays as a manual cache-buster if needed.
   if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+    navigator.serviceWorker.register("sw.js").catch(() => {});
   }
 }
 
