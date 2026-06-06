@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refreshing Dragon Pitch…</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #1a1030; color: #f3eefe;
+      text-align: center; padding: 48px 20px; }
+    .d { font-size: 4rem; }
+    a { color: #ffd23f; }
+  </style>
+</head>
+<body>
+  <div class="d">🐉🔄</div>
+  <h2>Refreshing Dragon Pitch…</h2>
+  <p id="msg">Clearing old cache…</p>
+  <p><small>If this doesn't move along, <a id="go" href="index.html">tap here</a>.</small></p>
+  <script>
+    (async () => {
+      try {
+        if ("serviceWorker" in navigator) {
+          const rs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(rs.map((r) => r.unregister()));
+        }
+      } catch (e) {}
+      try {
+        if (window.caches) {
+          const ks = await caches.keys();
+          await Promise.all(ks.map((k) => caches.delete(k)));
+        }
+      } catch (e) {}
+      const url = "index.html?fresh=" + Date.now();
+      document.getElementById("go").href = url;
+      document.getElementById("msg").textContent = "Done! Loading the game…";
+      location.replace(url);
+    })();
+  </script>
+</body>
+</html>

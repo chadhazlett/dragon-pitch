@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2a6a"/>
+      <stop offset="1" stop-color="#1a1030"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#f0b400"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+  <!-- dragon head silhouette -->
+  <path d="M150 250
+           q-30 -70 35 -110
+           q-10 28 14 40
+           q40 -55 110 -40
+           q-30 14 -28 40
+           q60 -6 78 38
+           q-40 -8 -58 8
+           q34 18 30 58
+           q-26 -30 -58 -28
+           q6 36 -22 58
+           q-6 -34 -30 -44
+           q-30 30 -70 20
+           q34 -16 30 -46
+           q-30 6 -53 -2 z"
+        fill="#9b5cff" opacity="0.55"/>
+  <!-- music note -->
+  <g fill="url(#gold)">
+    <rect x="300" y="120" width="20" height="190" rx="8"/>
+    <path d="M300 120 q70 6 70 60 q0 22 -22 30 q12 -18 2 -34 q-16 -22 -50 -16 z"/>
+    <ellipse cx="288" cy="312" rx="42" ry="32" transform="rotate(-18 288 312)"/>
+  </g>
+  <!-- piano keys -->
+  <g>
+    <rect x="86" y="392" width="340" height="70" rx="14" fill="#fbf7ff"/>
+    <g fill="#2b2440">
+      <rect x="120" y="392" width="20" height="44" rx="4"/>
+      <rect x="170" y="392" width="20" height="44" rx="4"/>
+      <rect x="250" y="392" width="20" height="44" rx="4"/>
+      <rect x="300" y="392" width="20" height="44" rx="4"/>
+      <rect x="350" y="392" width="20" height="44" rx="4"/>
+    </g>
+  </g>
+</svg>

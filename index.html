@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#1a1030" />
+  <title>Dragon Pitch 🐉🎹</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon.svg" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="bgDragon"></div>
+  <div id="bgTint"></div>
+
+  <!-- ============ SPLASH / AUDIO UNLOCK ============ -->
+  <section id="splash" class="screen active">
+    <div class="splash-card">
+      <div class="big-dragon">🐉</div>
+      <h1>Dragon Pitch</h1>
+      <p class="tagline">Hear a note. Name it. Slay the dragon. 🎹⚔️</p>
+      <button id="startBtn" class="primary-btn big">Tap to Start</button>
+      <p id="loadingMsg" class="muted small"></p>
+    </div>
+  </section>
+
+  <!-- ============ PROFILE PICKER ============ -->
+  <section id="profiles" class="screen">
+    <div class="card">
+      <h2>Who's playing?</h2>
+      <ul id="profileList" class="profile-list"></ul>
+      <div class="new-profile">
+        <input id="newName" type="text" maxlength="14" placeholder="New player name" autocomplete="off" />
+        <button id="addProfileBtn" class="primary-btn">Add</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section id="game" class="screen">
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn" title="Menu">☰</button>
+      <div class="who"><span id="playerName">—</span></div>
+      <div class="stars">⭐ <span id="starCount">0</span></div>
+    </header>
+
+    <div class="scorebar">
+      <span class="pill good-pill">✅ <span id="scCorrect">0</span> right</span>
+      <span class="pill brave-pill">💪 <span id="scBrave">0</span> bravery</span>
+    </div>
+
+    <div class="boss-zone">
+      <div class="boss-name"><span id="bossNum">1</span>/8 · <span id="bossName">Ender Dragon</span></div>
+      <img class="boss-sprite" id="bossSprite" alt="dragon" />
+      <div class="hpbar"><div class="hpfill" id="bossHp"></div></div>
+      <div class="hearts" id="hearts"></div>
+    </div>
+
+    <div class="play-zone">
+      <button id="hearBtn" class="hear-btn">🔊 Hear the note</button>
+      <label class="noise-toggle"><input type="checkbox" id="noiseToggle" />
+        <span>🔀 Noise between notes <small>· absolute-pitch mode</small></span></label>
+      <div id="timerWrap" class="timer-wrap hidden"><div class="timer-fill" id="timerFill"></div></div>
+      <div id="feedback" class="feedback">&nbsp;</div>
+      <div id="noteButtons" class="note-buttons"></div>
+    </div>
+  </section>
+
+  <!-- ============ MENU / SETTINGS MODAL ============ -->
+  <div id="menuModal" class="modal">
+    <div class="modal-card">
+      <h2>Menu</h2>
+      <div class="stat-block" id="statBlock"></div>
+      <hr />
+      <h3>Grown-up settings</h3>
+      <label class="row"><input type="checkbox" id="menuNoise" /> Noise between tones <small class="muted">— emphasize absolute pitch</small></label>
+      <label class="row"><input type="checkbox" id="freePractice" /> Free practice (ignore dragon ladder)</label>
+      <div id="practiceOpts" class="practice-opts hidden">
+        <p class="small muted">Notes to practice:</p>
+        <div id="practiceNotes" class="mini-notes"></div>
+        <p class="small muted">Octaves:</p>
+        <div id="practiceOctaves" class="mini-notes"></div>
+        <label class="row"><input type="checkbox" id="practiceClock" /> Beat the clock</label>
+      </div>
+      <hr />
+      <div class="menu-actions">
+        <button id="exportBtn" class="ghost-btn">Export progress</button>
+        <button id="importBtn" class="ghost-btn">Import progress</button>
+        <input type="file" id="importFile" accept="application/json" class="hidden" />
+      </div>
+      <div class="menu-actions">
+        <button id="chooseDragonBtn" class="ghost-btn">🗺️ Choose dragon</button>
+        <button id="switchPlayerBtn" class="ghost-btn">Switch player</button>
+      </div>
+      <div class="menu-actions">
+        <button id="resetBossBtn" class="ghost-btn danger">Restart this dragon</button>
+      </div>
+      <button id="closeMenuBtn" class="primary-btn">Back to game</button>
+      <p class="credit small muted">Background: Minecraft “The End” — image via
+        <a href="https://www.g-portal.com/en/blog/minecraft-dimensions-en" target="_blank" rel="noopener">g-portal.com</a>.
+        Minecraft is a trademark of Mojang&nbsp;/&nbsp;Microsoft.</p>
+    </div>
+  </div>
+
+  <!-- ============ DRAGON SELECT MODAL ============ -->
+  <div id="selectModal" class="modal">
+    <div class="modal-card">
+      <h2>Choose a dragon 🗺️</h2>
+      <p class="small muted">Replay any dragon you've already reached.</p>
+      <div id="dragonSelect" class="dragon-select"></div>
+      <button id="closeSelectBtn" class="primary-btn">Back</button>
+    </div>
+  </div>
+
+  <!-- ============ VICTORY MODAL ============ -->
+  <div id="winModal" class="modal">
+    <div class="modal-card center">
+      <img class="win-dragon" id="winSprite" alt="dragon" />
+      <h2 id="winTitle">Dragon defeated!</h2>
+      <p id="winText" class="muted"></p>
+      <button id="nextBossBtn" class="primary-btn big">Next dragon →</button>
+    </div>
+  </div>
+
+  <a id="photoCredit" href="https://www.g-portal.com/en/blog/minecraft-dimensions-en" target="_blank" rel="noopener">📷 “The End” · g-portal.com</a>
+
+  <script src="vendor/Tone.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

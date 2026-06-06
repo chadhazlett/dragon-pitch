@@ -1,0 +1,12 @@
+Piano samples: "Salamander Grand Piano" by Alexander Holm.
+Licensed under Creative Commons Attribution 3.0 (CC-BY 3.0).
+Source: https://archive.org/details/SalamanderGrandPianoV3
+Distributed via the Tone.js audio examples: https://tonejs.github.io/audio/salamander/
+
+These mp3 files are a small subset (one sample per minor third, C2-C6) used by
+Tone.Sampler, which pitch-shifts between them to cover all required notes.
+
+----
+
+Tone.js (vendor/Tone.js) by Yotam Mann and contributors.
+Licensed under the MIT License. https://github.com/Tonejs/Tone.js
