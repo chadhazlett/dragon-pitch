@@ -199,6 +199,19 @@ function addProfile() {
   inp.value = "";
   startWithPlayer(name);
 }
+// If the page was opened as index.html?name=Xyz (e.g. from a birthday card), make
+// sure that profile exists and return its name so we can jump straight into the game.
+function getNameParam() {
+  try {
+    const raw = new URLSearchParams(location.search).get("name");
+    if (!raw) return null;
+    const name = raw.trim().slice(0, 16);
+    if (!name) return null;
+    const names = listPlayers();
+    if (!names.includes(name)) { names.push(name); savePlayersList(names); savePlayer(newPlayerData(name)); }
+    return name;
+  } catch { return null; }
+}
 function startWithPlayer(name) {
   player = loadPlayer(name);
   localStorage.setItem(LS_LAST, name);
@@ -590,6 +603,9 @@ function wire() {
     }
     $("loadingMsg").textContent = audioReady ? "" : "Piano still loading — sound will start in a moment…";
     $("startBtn").disabled = false;
+    // a ?name= link (e.g. from a birthday card) jumps straight to that player's game
+    const named = getNameParam();
+    if (named) { startWithPlayer(named); return; }
     const last = localStorage.getItem(LS_LAST);
     renderProfiles();
     if (last && listPlayers().includes(last)) startWithPlayer(last);

@@ -51,14 +51,43 @@
   <div class="bday-wrap">
     <div class="bday-card">
       <img class="bday-dragon" src="assets/dragons/gold.svg" alt="golden dragon" />
-      <h1>Happy <span class="num">8th</span> Birthday,<br><span class="name">CharChar!</span> 🎉</h1>
+      <h1 id="greeting">Happy Birthday! 🎉</h1>
       <p class="bday-msg">We thought you might like this Minecraft-themed dragon-slaying ear-training game!</p>
-      <a class="play-btn" href="index.html">▶ Play Dragon Pitch 🐉🎹</a>
+      <a class="play-btn" id="playBtn" href="index.html">▶ Play Dragon Pitch 🐉🎹</a>
       <div class="signoff">🎂🎈🎁</div>
     </div>
   </div>
 
   <a id="photoCredit" href="https://www.g-portal.com/en/blog/minecraft-dimensions-en" target="_blank" rel="noopener">📷 “The End” · g-portal.com</a>
+
+  <script>
+    // Personalize from the URL: happy-birthday.html?name=CharChar&age=8
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const rawName = params.get("name");
+      const name = rawName ? rawName.trim().slice(0, 40) : "";
+      const ageRaw = params.get("age");
+      const age = ageRaw && /^\d{1,3}$/.test(ageRaw) ? parseInt(ageRaw, 10) : null;
+      const ordinal = (n) => { const s = ["th", "st", "nd", "rd"], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); };
+      const h = document.getElementById("greeting");
+      const playBtn = document.getElementById("playBtn");
+      if (name) {
+        document.title = "Happy Birthday, " + name + "! 🐉🎉";
+        h.textContent = "";
+        h.appendChild(document.createTextNode("Happy "));
+        if (age) { const num = document.createElement("span"); num.className = "num"; num.textContent = ordinal(age) + " "; h.appendChild(num); }
+        h.appendChild(document.createTextNode("Birthday,"));
+        h.appendChild(document.createElement("br"));
+        const sp = document.createElement("span"); sp.className = "name"; sp.textContent = name + "!"; h.appendChild(sp);
+        h.appendChild(document.createTextNode(" 🎉"));
+        playBtn.href = "index.html?name=" + encodeURIComponent(name);
+      } else {
+        document.title = "Happy Birthday! 🐉🎉";
+        h.textContent = "Happy Birthday! 🎉";
+        playBtn.href = "index.html";
+      }
+    })();
+  </script>
 
   <script>
     // lightweight confetti
