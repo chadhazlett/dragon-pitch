@@ -1,6 +1,7 @@
 {
   "name": "Dragon Pitch",
-  "short_name": "DragonPitch",
+  "short_name": "Dragon Pitch",
+  "id": "/dragon-pitch/",
   "description": "Hear a piano note, name it, and slay the dragon — an absolute-pitch trainer.",
   "start_url": "./index.html",
   "scope": "./",

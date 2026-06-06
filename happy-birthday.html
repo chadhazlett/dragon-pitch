@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#1a1030" />
   <title>Happy Birthday, CharChar! 🐉🎉</title>
   <link rel="icon" href="icons/icon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* this page scrolls/centers instead of the game's fixed layout */
@@ -87,6 +89,8 @@
         playBtn.href = "index.html";
       }
     })();
+    // register the service worker so this card is installable as the Dragon Pitch app
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
   </script>
 
   <script>

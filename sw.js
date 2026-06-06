@@ -1,5 +1,5 @@
 /* Dragon Pitch service worker — cache the whole app for offline play. */
-const CACHE = "dragonpitch-v6";
+const CACHE = "dragonpitch-v7";
 const ASSETS = [
   "./",
   "./index.html",
